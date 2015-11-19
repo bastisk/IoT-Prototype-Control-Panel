@@ -1,0 +1,10 @@
+﻿body{
+    font-family: "Tele-GroteskNor";
+    font-size: 18px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: "TeleGrotesk Headline";
+    font-weight: 800;
+    color: #E20074;
+}

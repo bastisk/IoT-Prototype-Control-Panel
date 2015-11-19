@@ -1,0 +1,13 @@
+﻿extends layout
+
+block content
+    div.container
+        div.row
+            div.col.col-md-6
+                button.btn.btn-default(onClick="startvolume()") Start Openhab
+                button.btn.btn-default(onClick="stopvolume()") Stop Openhab
+            div.col.col-md-6
+                button.btn.btn-default(onClick="startvolume()") Start Sensors
+                button.btn.btn-default(onClick="stopvolume()") Start Sensors
+        textarea.form-control#console(rows="5") Logging enabled...
+        a(href="#") Visit Dashboard
