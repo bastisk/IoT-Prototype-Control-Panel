@@ -4,42 +4,27 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('index', { title: 'Express' });
+    exec("sudo /etc/init.d/openhab status", function (error, stdout, stderr) {
+        var feedback = { stdout: stdout, stderr: stderr, error: error };
+        var output = 'Error: Openhab is not running! You can try to <a href="/console?item=openhab&action=start"> start OpenHab</a>';
+        if (feedback.stdout.indexOf('running') > -1) {
+            running = true;
+            output = "OK!";
+        }
+        res.render('index', { openhab: feedback, running: output});
+
+    });
 });
 
-router.post('/openhab', function (req, res) {
-    if (req.body.action == "start") {
-        exec("sudo /etc/init.d/openhab start", function (error, stdout, stderr) { 
-            res.send({ stdout: stdout, stderr: stderr, error: error });
+router.get('/console', function (req, res) {
+    if (req.query.action && req.query.item) {
+        var item = req.query.action;
+        var item = req.query.item;
+        exec("sudo /etc/init.d/openhab start", function (error, stdout, stderr) {
+            res.render('console', { log: { error: error, stdout: stdout, stderr: stderr } });
         });
-    }
-    if (req.body.action == "stop") {
-        exec("sudo /etc/init.d/openhab stop", function (error, stdout, stderr) {
-            res.send({ stdout: stdout, stderr: stderr, error: error });
-        });
-    }
-    if (req.body.action == "status") {
-        exec("sudo /etc/init.d/openhab status", function (error, stdout, stderr) {
-            res.send({ stdout: stdout, stderr: stderr, error: error });
-        });
-    }
-});
-
-router.post('/volume', function (req, res) {
-    if (req.body.action == "start") {
-        exec("sudo /etc/init.d/volumesensor start", function (error, stdout, stderr) {
-            res.send({ stdout: stdout, stderr: stderr, error: error });
-        });
-    }
-    if (req.body.action == "stop") {
-        exec("sudo /etc/init.d/volumesensor stop", function (error, stdout, stderr) {
-            res.send({ stdout: stdout, stderr: stderr, error: error });
-        });
-    }
-    if (req.body.action == "status") {
-        exec("sudo /etc/init.d/volumesensor status", function (error, stdout, stderr) {
-            res.send({ stdout: stdout, stderr: stderr, error: error });
-        });
+    } else {
+        res.render('console');
     }
 });
 

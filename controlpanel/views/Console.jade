@@ -1,0 +1,12 @@
+﻿extends layout
+
+block content
+    div.container
+        form.form-inline
+            div.form-group
+                label Command
+                input(type="text", name="command", placeholder="Enter a Linux command...").form-control
+            div.form-group
+                button(type="submit").btn.btn-default Run
+        textarea.form-control#console(rows="5") #{log.error};#{log.stdout};#{log.stderr}
+        a(href="#") Visit Dashboard
