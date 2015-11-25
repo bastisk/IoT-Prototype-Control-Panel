@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
         var output = 'Error: Openhab is not running! You can try to <a href="/console?item=openhab&action=start"> start OpenHab</a>';
         if (feedback.stdout.indexOf('running') > -1) {
             running = true;
-            output = "OK!";
+            output = 'OK! <a href="/openhab"> Visit OpenHab Page...';
         }
         res.render('index', { openhab: feedback, running: output});
 
@@ -17,15 +17,23 @@ router.get('/', function (req, res) {
 });
 
 router.get('/console', function (req, res) {
-    if (req.query.action && req.query.item) {
-        var item = req.query.action;
+        var action = req.query.action;
         var item = req.query.item;
-        exec("sudo /etc/init.d/openhab start", function (error, stdout, stderr) {
-            res.render('console', { log: { error: error, stdout: stdout, stderr: stderr } });
-        });
-    } else {
-        res.render('console');
-    }
+        console.log(item, action);
+        res.render('console', { log: { error: "", stdout: "", stderr: "" } });
+});
+
+router.get('/openhab', function (req, res) {
+    res.render('openhab');
+});
+
+router.post('/console', function (req, res) {
+    var command = req.body.command;
+    exec(command, function (error, stdout, stderr) {
+        res.render('console', { log: { error: error, stdout: stdout, stderr: stderr } });
+    });
+
+    
 });
 
 module.exports = router;

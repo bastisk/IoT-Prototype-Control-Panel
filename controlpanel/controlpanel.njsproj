@@ -50,10 +50,11 @@
     <Content Include="public\css\style.css" />
     <Content Include="public\css\style.styl" />
     <Content Include="README.md" />
-    <Content Include="views\Console.jade" />
+    <Content Include="views\console.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\error.jade" />
+    <Content Include="views\openhab.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />

@@ -2,11 +2,28 @@
 
 block content
     div.container
-        form.form-inline
+        h3 Quick Commands
+        div.form-group
+            label Openhab
+            table
+                tr
+                    td
+                        button.btn.btn-default Start Openhab
+                    td
+                        button.btn.btn-default Stop Openhab
+        div.form-group
+            label Microphone
+            table
+                tr
+                    td
+                        button.btn.btn-default Start Sensor
+                    td
+                        button.btn.btn-default Stop Sensor 
+        hr
+
+        form.form-inline(method="post")
             div.form-group
-                label Command
                 input(type="text", name="command", placeholder="Enter a Linux command...").form-control
             div.form-group
                 button(type="submit").btn.btn-default Run
         textarea.form-control#console(rows="5") #{log.error};#{log.stdout};#{log.stderr}
-        a(href="#") Visit Dashboard
