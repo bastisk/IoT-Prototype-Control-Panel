@@ -20,6 +20,14 @@ router.post('/openhab', function (req, res) {
     }
 });
 
+router.post('/power', function (req, res) {
+    if (req.body.action == "shutdown") {
+        exec("sudo shutdown -h now", function (error, stdout, stderr) {
+            res.send({ stdout: stdout, stderr: stderr, error: error });
+        });
+    }
+});
+
 router.post('/volume', function (req, res) {
     if (req.body.action == "start") {
         exec("sudo /etc/init.d/volumesensor start", function (error, stdout, stderr) {
