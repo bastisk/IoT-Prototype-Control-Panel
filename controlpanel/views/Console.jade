@@ -8,17 +8,17 @@ block content
             table
                 tr
                     td
-                        button.btn.btn-default Start Openhab
+                        button.btn.btn-default#startopenhab Start Openhab
                     td
-                        button.btn.btn-default Stop Openhab
+                        button.btn.btn-default#stopopenhab Stop Openhab
         div.form-group
             label Microphone
             table
                 tr
                     td
-                        button.btn.btn-default Start Sensor
+                        button.btn.btn-default#startvolume Start Sensor
                     td
-                        button.btn.btn-default Stop Sensor 
+                        button.btn.btn-default#stopvolume Stop Sensor 
         hr
 
         form.form-inline(method="post")
@@ -27,3 +27,4 @@ block content
             div.form-group
                 button(type="submit").btn.btn-default Run
         textarea.form-control#console(rows="5") #{log.error};#{log.stdout};#{log.stderr}
+        script(type='text/javascript', src='../js/handler.js')
